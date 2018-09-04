@@ -32,7 +32,10 @@ export default {
         vertical-align: middle;
     }
     .count-wrapper .decrease {
-        background-image: url(../img/decrease.png)
+        background-image: url(../img/decrease.png);
+        background-size: 20px 20px;
+        background-position: center center;
+        background-repeat: no-repeat;
     }
     .count-wrapper .increase {
         background-image: url(../img/increase.png)

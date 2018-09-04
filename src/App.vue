@@ -78,8 +78,8 @@ html, body {
   height: 100%;
   display: block;
 }
-.goods-router-link-wrapper div a.active {
-  color: rgb(240, 20, 20)
+.router-link-exact-active {
+  color: rgb(240, 20, 20);
 }
 
 </style>

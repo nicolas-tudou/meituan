@@ -119,7 +119,8 @@ export default {
     .goods-detail-wrapper .food-wrapper {
         display: flex;
         justify-content: space-between;
-        padding: 18px 18px 0 18px;
+        margin: 18px 18px 0 18px;
+        border-bottom: 1px solid rgb(7, 17, 27,0.1);
     }
     .goods-detail-wrapper .food-wrapper .food-img {
         width: 82px;
