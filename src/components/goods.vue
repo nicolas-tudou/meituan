@@ -201,11 +201,13 @@ export default {
   color: rgb(147, 153, 159);
   padding-left: 12px;
   border-left: 2px solid d9dde1;
+  /* margin: 18px 0; */
 }
 .goods-detail-wrapper .food-wrapper {
   display: flex;
   justify-content: space-between;
   margin: 18px 18px 0 18px;
+  /* height: 86px; */
   border-bottom: 1px solid rgb(7, 17, 27, 0.1);
 }
 .goods-detail-wrapper .food-wrapper .food-img {

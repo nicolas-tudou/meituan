@@ -1,14 +1,16 @@
 1、记录选中的选项 计算处每个选项在右侧对应的位置 用户点击菜单的切换功能
 
-使用:class=['active',flag] 通过对state数据计算的结果来决定是否添加选中的样式
+借用 flag 标识字段 每次修改 state 数据时修改 falg 值 实现引用类型数据的监听
 
-菜单列表高度54px
+使用 :class={'active',flag} 通过对 state 数据计算的结果来决定是否添加选中的样式
 
-商品列表标题高度26px
-商品内容区高度86px
+菜单列表高度 54px
 
-点击选中菜单栏时 按照具体点击的菜单计算商品列表的滚动条的位置 修改state数据 渲染视图
-滚动滚动条时根据滚动的距离修改选中的菜单 同样修改state数据渲染视图
+商品列表标题高度 26px
+商品内容区高度 86px
+
+点击选中菜单栏时 按照具体点击的菜单计算商品列表的滚动条的位置 修改 state 数据 渲染视图
+滚动滚动条时根据滚动的距离修改选中的菜单 同样修改 state 数据渲染视图
 
 2、创建一个对象 用于记录当前的商家所有菜单中被选择的商品信息 用于购物车和选择商品增删
 当选择
@@ -16,15 +18,23 @@
 
 
 state: {
-    activeMenu: 0,
-    menuHeight: [0],
-    choosedGoods: [
-        {
-            goodName: '',
-            goodPrice: 0,
-            goodCount: 0
-        }
-    ]
+    flag: true,
+    activeMenuIndex: 0,
+    menuHeightArr: [0],
+    curMenuHeight: 0,
+    totleCount: 0,
+    totlePrice: 0,
+    choosedFoods: {
+        type1: {
+            foodName1: {
+               foodName: '',
+               foodPrice: 0,
+               foodCount: 0
+                }
+        },
+        
+
+    }
 }
 
 changeMenuIndex 方法改变选择菜单的位置
