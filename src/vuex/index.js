@@ -5,6 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    flag: true,
     activeMenuIndex: 0,
     menuHeightArr: [0],
     curMenuHeight: 0,
@@ -23,6 +24,15 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    toOriginState(state) {
+        state.activeMenuIndex = 0;
+        state.menuHeightArr = [0];
+        state.curMenuHeight = 0;
+        state.totleCount = 0;
+        state.totlePrice = 0;
+        state.choosedFoods = {};
+        state.flag = !state.flag;
+    },
     changeMenuIndex: function (state, n) {
         // console.log(state, n)
         state.activeMenuIndex = n;
@@ -54,6 +64,7 @@ export default new Vuex.Store({
                 foodCount: 1
             };
         }
+        state.flag = !state.flag;
     },
     decrease: function (state, arr) {
         var type = arr[0],
@@ -69,6 +80,7 @@ export default new Vuex.Store({
                 delete state.choosedFoods[type];
             }
         }
+        state.flag = !state.flag;
     }
   }
 })

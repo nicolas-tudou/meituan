@@ -63,6 +63,7 @@ export default {
   methods: {
     clickMenu: function(index) {
       this.$store.commit("changeMenuIndex", index);
+      this.scrollTop = this.$store.state.menuHeightArr[index];
     },
     getMenuHeight: function() {
       var temp = 0;

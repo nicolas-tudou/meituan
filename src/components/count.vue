@@ -1,7 +1,7 @@
 <template>
     <div class="count-wrapper">
         <span class="decrease" v-if="number > 0" @click="decrease"></span>
-        <span class="number" v-if="number > 0">{{number}}</span>
+        <span class="number" v-if="number > 0">{{$store.state.choosedFoods[type][name].foodCount}}</span>
         <span class="increase" @click="increase"></span>
     </div>
 </template>
@@ -21,6 +21,21 @@ export default {
     },
     created() {
         this.changeCount();
+    },
+    computed: {
+        getFoodCount() {
+            return this.$store.state.flag;
+        }
+    },
+    watch: {
+        getFoodCount(newFlag, oldFlag) {
+            console.log(newFlag, oldFlag)
+            if(this.$store.state.choosedFoods[this.type] && this.$store.state.choosedFoods[this.type][this.name]) {
+                this.number = this.$store.state.choosedFoods[this.type][this.name].foodCount;
+            }else {
+                this.number = 0;
+            }
+        }
     },
     methods: {
         changeCount: function() {

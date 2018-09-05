@@ -2,7 +2,7 @@
     <div class="shopcart-wrapper">
         <div class="content-wrapper">
             <div class="shopcart-content">
-                <div class="shopcart-icon" :class="{'notempty': count > 0}">
+                <div @click="shopCart" class="shopcart-icon" :class="{'notempty': count > 0}">
                     <span>{{count}}</span>
                 </div>
                 <span>￥{{totlePrice}}</span>
@@ -13,19 +13,27 @@
                 <span v-else>去结算</span>
             </div>
         </div>
-        <div class="shopcart-detail-wrapper" v-if="flag">
-            <div class="title">
-                <span class="shaopcart-title">购物车</span>
-                <span class="shopcart-clear">清空</span>
-            </div>
-            <div class="datail">
-                
+        <div class="shopcart-bg" v-if="flag && totlePrice > 0">
+            <div class="shopcart-detail-wrapper">
+                <div class="title">
+                    <span class="shopcart-title">购物车</span>
+                    <span class="shopcart-clear" @click="clearShopcart">清空</span>
+                </div>
+                <div v-for="(foods, key, index) in shopcartContent" :key="index" class="detail-wrapper">
+                    <div v-for="(food, id) in foods" :key="id" class="detail-content">
+                        <span class="food-name">{{food.foodName}}</span>
+                        <span class="food-count">￥{{food.foodPrice}}</span>
+                        <count class="count" :type='key' :name='food.foodName' :price="food.foodPrice/food.foodCount"></count>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import count from './count'
+
 export default {
     data() {
         return {
@@ -34,8 +42,11 @@ export default {
             totlePrice: 0,
             count: 0,
             flag: false,
-            shopcartContent: []
+            shopcartContent: {}
         }
+    },
+    components: {
+        count
     },
     created() {
         this.getshopcart();
@@ -51,6 +62,12 @@ export default {
                     this.$store.state.totlePrice = this.totlePrice;
                 }
             }
+        },
+        shopCart() {
+            this.flag = !this.flag;
+        },
+        clearShopcart() {
+            this.$store.commit('toOriginState');
         }
     },
     computed: {
@@ -68,6 +85,11 @@ export default {
 </script>
 
 <style scoped>
+    .shopcart-wrapper {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+    }
     .content-wrapper {
         display: flex;
         justify-content: space-between;
@@ -96,6 +118,7 @@ export default {
         background-image: url(../img/shopcart.png);
         background-size:  44px 44px;
         background-color: #2b333b;
+        z-index: 999;
     }
     .content-wrapper .shopcart-content .shopcart-icon span{
         display: none;
@@ -154,5 +177,61 @@ export default {
     }
     .content-wrapper .min-price.to-balance {
         background-color: rgb(0, 160, 220);
+    }
+    .shopcart-wrapper .shopcart-bg {
+        position: relative;
+        width: 100%;
+        background-color: rgba(7, 17, 27, 0.6);
+        filter: blur(10);
+        box-sizing: border-box;
+    }
+    .shopcart-bg .shopcart-detail-wrapper {
+        max-height: 300px;
+        position: absolute;
+        left: 0;
+        bottom: 48px;
+        width: 100%;
+        overflow-y: scroll;
+    }
+    .shopcart-detail-wrapper .title {
+        width: 100%;
+        height: 40px;
+        background-color: #f3f5f7;
+        font-size: 14px;
+        font-weight: 200;
+        color: rgb(7, 17, 27);
+        line-height: 40px;
+        border-bottom: 1px solid rgba(7, 17, 27, 0.1);
+    }
+    .shopcart-detail-wrapper .title .shopcart-title {
+        float: left;
+        margin-left: 18px;
+    }
+    .shopcart-detail-wrapper .title .shopcart-clear {
+        float: right;
+        margin-right: 18px;
+        color: rgb(0, 160, 220);
+    }
+    .detail-wrapper {
+        width: 100%;
+        background-color: #fff;
+    }
+    .detail-content {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 18px;
+    }
+    .detail-content .food-name {
+        flex: 1;
+        font-size: 14px;
+        color: rgb(7, 17, 27);
+        line-height: 24px;
+    }
+    .detail-content .food-count {
+        margin: 0 12px 0 18px;
+        color: rgb(240, 20, 20);
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 24px;
     }
 </style>
