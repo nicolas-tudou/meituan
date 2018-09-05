@@ -52,8 +52,7 @@
     "goods": [{
             "name": "热销榜",
             "type": -1,
-            "foods": [
-                {
+            "foods": [{
                     "name": "皮蛋瘦肉粥",
                     "price": 10,
                     "oldPrice": 12,
@@ -387,8 +386,7 @@
         {
             "name": "单人精彩套餐",
             "type": 2,
-            "foods": [
-                {
+            "foods": [{
                 "name": "红枣山药粥套餐",
                 "price": 29,
                 "oldPrice": 36,
@@ -410,8 +408,7 @@
         {
             "name": "冰爽饮品限时特惠",
             "type": 1,
-            "foods": [
-                {
+            "foods": [{
                 "name": "VC无限橙果汁",
                 "price": 8,
                 "oldPrice": 10,
@@ -441,8 +438,7 @@
         {
             "name": "精选热菜",
             "type": -1,
-            "foods": [
-                {
+            "foods": [{
                     "name": "娃娃菜炖豆腐",
                     "price": 17,
                     "oldPrice": "",
@@ -525,8 +521,7 @@
         {
             "name": "爽口凉菜",
             "type": -1,
-            "foods": [
-                {
+            "foods": [{
                     "name": "八宝酱菜",
                     "price": 4,
                     "oldPrice": "",
@@ -597,8 +592,7 @@
         {
             "name": "精选套餐",
             "type": -1,
-            "foods": [
-                {
+            "foods": [{
                     "name": "红豆薏米粥套餐",
                     "price": 37,
                     "oldPrice": "",
@@ -639,8 +633,7 @@
         {
             "name": "果拼果汁",
             "type": -1,
-            "foods": [
-                {
+            "foods": [{
                     "name": "蜜瓜圣女萝莉杯",
                     "price": 6,
                     "oldPrice": "",
@@ -716,8 +709,7 @@
         {
             "name": "小吃主食",
             "type": -1,
-            "foods": [
-                {
+            "foods": [{
                     "name": "扁豆焖面",
                     "price": 14,
                     "oldPrice": "",
@@ -887,8 +879,7 @@
         {
             "name": "特色粥品",
             "type": -1,
-            "foods": [
-                {
+            "foods": [{
                     "name": "皮蛋瘦肉粥",
                     "price": 10,
                     "oldPrice": "",
@@ -1310,7 +1301,6 @@
             "deliveryTime": "",
             "score": 4,
             "rateType": 0,
-            "deliveryTime": "",
             "text": "服务态度不错",
             "avatar": "http://static.galileo.xiaojukeji.com/static/tms/default_header.png",
             "recommend": [
