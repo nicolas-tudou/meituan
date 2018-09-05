@@ -2,15 +2,21 @@
     <div class="shopcart-wrapper">
         <div class="content-wrapper">
             <div class="shopcart-content">
-                <div class="shopcart-icon"></div>
-                <span>￥{{curPrice}}</span>
+                <div class="shopcart-icon" :class="{'notempty': count > 0}">
+                    <span>{{count}}</span>
+                </div>
+                <span>￥{{totlePrice}}</span>
             </div>
-            <div class="more-money">另需配送费￥{{minPrice - curPrice}}元</div>
-            <div class="min-price">￥{{minPrice}}起送</div>
+            <div class="more-money">另需配送费￥{{delivaryFee}}元</div>
+            <div class="min-price" :class="{'to-balance': minPrice - totlePrice <= 0}">
+                <span v-if="minPrice - totlePrice > 0">还差￥{{minPrice - totlePrice}}起送</span>
+                <span v-else>去结算</span>
+            </div>
         </div>
-        <div class="shopcart-detail-wrapper">
+        <div class="shopcart-detail-wrapper" v-if="flag">
             <div class="title">
-
+                <span class="shaopcart-title">购物车</span>
+                <span class="shopcart-clear">清空</span>
             </div>
             <div class="datail">
                 
@@ -23,11 +29,41 @@
 export default {
     data() {
         return {
+            delivaryFee: 4,
             minPrice: 30,
-            curPrice: 10
+            totlePrice: 0,
+            count: 0,
+            flag: false,
+            shopcartContent: []
+        }
+    },
+    created() {
+        this.getshopcart();
+    },
+    methods:{
+        getshopcart() {
+            this.shopcartContent = this.$store.state.choosedFoods;
+            for(props in this.$store.state.choosedFoods) {
+                for(prop in props) {
+                    this.count += prop.foodCount;
+                    this.totlePrice += prop.foodPrice;
+                    this.$store.state.totleCount = this.count;
+                    this.$store.state.totlePrice = this.totlePrice;
+                }
+            }
+        }
+    },
+    computed: {
+        listenTotle() {
+            return this.$store.state.totleCount;
+        }
+    },
+    watch: {
+        listenTotle(newVal, oldVal) {
+            this.count = newVal;
+            this.totlePrice = this.$store.state.totlePrice;
         }
     }
-
 }
 </script>
 
@@ -61,6 +97,29 @@ export default {
         background-size:  44px 44px;
         background-color: #2b333b;
     }
+    .content-wrapper .shopcart-content .shopcart-icon span{
+        display: none;
+    }
+    .content-wrapper .shopcart-content .shopcart-icon.notempty {
+        background-color: rgb(0, 160, 220);
+    }
+    .content-wrapper .shopcart-content .shopcart-icon.notempty span {
+        position: absolute;
+        right: -16px;
+        top: -0px;
+        display: block;
+        width: 24px;
+        height: 16px;
+        border-radius: 12px;
+        background-color: rgb(240, 20, 20);
+        font-size: 9px;
+        font-weight: 700;
+        color: rgb(255, 255, 255);
+        line-height: 16px;
+        text-align: center;
+        padding: 0;
+        margin: 0;
+    }
     .content-wrapper .shopcart-content span {
         display: block;
         position: absolute;
@@ -92,5 +151,8 @@ export default {
         text-align: center;
         line-height: 24px;
         background-color: rgba(0, 0, 0,0.6);
+    }
+    .content-wrapper .min-price.to-balance {
+        background-color: rgb(0, 160, 220);
     }
 </style>

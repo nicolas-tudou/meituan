@@ -1,8 +1,8 @@
 <template>
     <div class="count-wrapper">
-        <span class="decrease" v-if="number > 0"></span>
+        <span class="decrease" v-if="number > 0" @click="decrease"></span>
         <span class="number" v-if="number > 0">{{number}}</span>
-        <span class="increase"></span>
+        <span class="increase" @click="increase"></span>
     </div>
 </template>
 
@@ -15,9 +15,29 @@ export default {
         }
     },
     props:{
-        i: Number,
-        j: Number,
-        food: Object
+        type: String,
+        name: String,
+        price: Number
+    },
+    created() {
+        this.changeCount();
+    },
+    methods: {
+        changeCount: function() {
+            if(this.$store.state.choosedFoods[this.type] && this.$store.state.choosedFoods[this.type][this.name]) {
+                this.number = this.$store.state.choosedFoods[this.type][this.name].foodCount;
+            }else {
+                this.number = 0;
+            }
+        },
+        decrease: function () {
+            this.$store.commit('decrease', [this.type, this.name, this.price]);
+            this.changeCount();
+        },
+        increase: function () {
+            this.$store.commit('increase', [this.type, this.name, this.price]);
+            this.changeCount();
+        }
     }
 }
 </script>

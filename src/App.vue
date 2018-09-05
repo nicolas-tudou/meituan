@@ -32,7 +32,6 @@ export default {
   created() {
     axios.get('/good/seller').then((res) => {
       this.seller = res.data.data;
-      console.log(this.seller)
     })
   }
 }

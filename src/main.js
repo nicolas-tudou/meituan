@@ -9,12 +9,11 @@ import store from './vuex'
 
 
 /* eslint-disable no-new */
-var vm = new Vue({
+const vm = new Vue({
   el: '#app',
   router,
   store,
   components: { App },
   template: '<App/>'
 })
-
 console.log(vm)
