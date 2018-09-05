@@ -5,11 +5,16 @@ import App from './App'
 import router from './router'
 import '../mock/index'
 
+import store from './vuex'
+
 
 /* eslint-disable no-new */
-new Vue({
+var vm = new Vue({
   el: '#app',
   router,
+  store,
   components: { App },
   template: '<App/>'
 })
+
+console.log(vm)

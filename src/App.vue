@@ -17,6 +17,7 @@
 import goodsheader from './components/goodsheader'
 import shopcart from './components/shopcart'
 import axios from 'axios'
+
 export default {
   name: 'App',
   data() {

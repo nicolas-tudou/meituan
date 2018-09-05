@@ -11,14 +11,14 @@ export default {
     name: "count",
     data() {
         return {
-            number: 1
+            number: 0
         }
     },
     props:{
-            i: Number,
-            j: Number,
-            food: Object
-        }
+        i: Number,
+        j: Number,
+        food: Object
+    }
 }
 </script>
 

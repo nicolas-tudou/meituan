@@ -1,14 +1,14 @@
 <template>
     <div class="goods-wrapper">
         <div class="goods-list-wrapper">
-            <div class="goods-list" v-for="(good, index) in goods" :key="index">
+            <div class="goods-list" v-for="(good, index) in goods" :key="index" :class="{'active': index == menuIndex}">
                 <div class="text-wrapper">
                     <span class="icon" v-show="good.type > 0" :class="classMap[good.type]"></span>
                     <span>{{good.name}}</span>
                 </div>
             </div>
         </div>
-        <div class="goods-detail-wrapper">
+        <div class="goods-detail-wrapper" :scroll="scrollMove.stop">
             <div class="goods-detail-list"  v-for="(foodList, i) in goods" :key="i">
                 <div class="food-title">{{foodList.name}}</div>
                 <div class="food-wrapper" v-for="(food, j) in foodList.foods" :key="j">
@@ -22,7 +22,7 @@
                         <div class="food-price">
                             <span class="now-price">￥{{food.price}}</span>
                             <span class="old-price" v-if="food.oldPrice">￥{{food.oldPrice}}</span>
-                            <count class="shop-car" :i='i' :j='j' :food='food'></count>
+                            <count class="shop-car" :type='foodList.name' :name='food.name'></count>
                         </div>
                     </div>
                 </div>
@@ -34,21 +34,47 @@
 <script>
 import axios from 'axios'
 import count from './count'
+
+const FOOD_ITEM_HEIGHT = 86
+const FOOD_TITLE_HEIGHT = 26
+
 export default {
     name: 'goods',
     data() {
         return {
             goods: [],
+            menuIndex: 0,
             classMap: ["decrease","discount","special","invoice_1","guarantee"]
         }
     },
     components: {count},
     created() {
         axios.get('/good/goods').then((res) => {
-            this.goods = res.data.data
-            console.log(this.goods)
+            this.goods = res.data.data;
+        }).then(() => {
+            this.getMenuHeight(this.goods);
+            this.menuIndex = this.$store.state.activeMenuIndex;
         })
+    },
+    methods: {
+        getMenuHeight: function(foods) {
+            var temp = 0;
+            var result = [];
+            foods.forEach((ele, index) => {
+                if(index !== 0) {
+                    // console.log(ele.foods.length)
+                    temp = ele.foods.length * FOOD_ITEM_HEIGHT + FOOD_TITLE_HEIGHT;
+                }
+                result.push(temp);
+            })
+            console.log(result)
+            this.$store.commit('changeMenuHeight', result);
+        },
+        scrollMove: function (e) {
+            console.log(e)
+        }
     }
+    
 }
 </script>
 
@@ -74,6 +100,9 @@ export default {
         height: 54px;
         border-bottom: 1px solid rgba(7, 17, 27,0.1);
         background-color: #f3f5f7;
+    }
+    .goods-wrapper .goods-list-wrapper .goods-list.active {
+        background-color: #fff;
     }
     .goods-wrapper .goods-list-wrapper .goods-list .text-wrapper {
         display: table-cell;
@@ -126,12 +155,13 @@ export default {
         width: 82px;
     }
     .food-wrapper .food-img img {
-        width: 100%;
+        width: 82px;
     }
     .goods-detail-wrapper .food-wrapper .food-detail {
-        flex: 1 1;
+        flex-grow: 1;
         margin-left: 10px;
         padding-top: 2px;
+        overflow: hidden;
     }
     .food-wrapper .food-detail .food-name {
         font-size: 14px;
@@ -142,6 +172,9 @@ export default {
         font-size: 10px;
         line-height: 20px;
         color: rgb(145, 153, 159);
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
     }
     .food-wrapper .food-detail .food-count {
         font-size: 10px;
