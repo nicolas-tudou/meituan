@@ -247,7 +247,7 @@ export default {
         }
         .seller-others {
             margin-top: 16px;
-            padding: 16px;
+            padding: 16px 16px 0 16px;
             .info-header {
                 font-size: 14px;
                 color: rgb(7, 17, 27);
