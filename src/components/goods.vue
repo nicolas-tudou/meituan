@@ -135,7 +135,7 @@ export default {
   display: flex;
   position: absolute;
   top: 0;
-  bottom: 48px;
+  bottom: 0;
   justify-content: space-between;
   width: 100%;
   overflow: hidden;

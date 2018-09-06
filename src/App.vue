@@ -57,7 +57,7 @@ html, body {
 .goods-info-wrapper {
   position: absolute;
   top: 174px;
-  bottom: 0;
+  bottom: 48px;
   width: 100%;
 }
 .goods-router-link-wrapper {
