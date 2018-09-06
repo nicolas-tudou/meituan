@@ -29,7 +29,6 @@ export default {
     },
     watch: {
         getFoodCount(newFlag, oldFlag) {
-            console.log(newFlag, oldFlag)
             if(this.$store.state.choosedFoods[this.type] && this.$store.state.choosedFoods[this.type][this.name]) {
                 this.number = this.$store.state.choosedFoods[this.type][this.name].foodCount;
             }else {
